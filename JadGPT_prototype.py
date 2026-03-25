@@ -1,5 +1,14 @@
 import random
+import os
+import datetime
 
+#ACTIONS
+def get_datetime():
+    time = datetime.time.now()
+    print("Bot: The time is", time,)
+
+
+      
 rules = [ 
     #Greeting
     (["wsp","howdy","wassup","hello","hi","hey","whatsup","sup","greetings"],
@@ -240,16 +249,19 @@ rules = [
     (["no way","nah","i hate bayern","bayern sucks","bayern is trash","bayern is the worst team","so bad"],
      ["I won't fall for the ragebait, how is your day?"]),
 
-     #Answers for "no"
-     (["no","nope","not really"],
-      ["Okay, want to talk about something else? What's on your mind?"]),
+    #Answers for "no"
+    (["no","nope","not really"],
+     ["Okay, want to talk about something else? What's on your mind?"]),
 
-     #Answers for "yes"
-     (["yes","yeah","yep","definitely"],
-      ["Great! What do you want to talk about?"]),
+    #Answers for "yes"
+    (["yes","yeah","yep","definitely"],
+     ["Great! What do you want to talk about?"]),
+    
+    #ACTION: Time
+    (["what time is it","time","current time"],
+     get_datetime),
+        
 ]
-
-
 fallback_responses = [
     "Can you motivate",
     "I don't understand",
@@ -277,5 +289,5 @@ def run_Jadgpt():
             break
         response = find_response(user_input)
         print("JadGPT: " + response)
-if __name__ == "__main__": 
-    run_Jadgpt()
+if __name__ == "__main__":
+  run_Jadgpt()
