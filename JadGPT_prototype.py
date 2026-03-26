@@ -1,13 +1,40 @@
-import random
-import os
-import datetime
-
-#ACTIONS
-def get_datetime():
-    time = datetime.time.now()
-    print("Bot: The time is", time,)
+import random  #used to pick random responses
+import os #used to open programs
+import datetime #used to get current time and date
 
 
+#ACTIONS  functions that perform tasks
+#defines get time function
+def get_time():
+    now = datetime.datetime.now()
+    print("\nJadGPT:", "The time is", now.strftime("%H:%M"))
+#defines get date function
+def get_date():
+    today = datetime.date.today()
+    print("\nJadGPT:", "Today's date is", today)
+#defines get time and date function
+def get_time_and_date():
+    now = datetime.datetime.now()
+    print("\nJadGPT:", "Right now it is", now.strftime("%Y-%m-%d %H:%M"))
+#defines open spotify function
+def open_spotify():
+    os.system("start spotify")
+    print("\nJadGPT: Opening Spotify for you!")
+#defines get day function
+def get_day():
+    today = datetime.datetime.now().strftime("%A")
+    print("\nJadGPT", "Today is", today)
+#defines open opera function
+def open_opera():
+    os.system("start opera")
+    print("\nJadGPT: Opening Opera for you!")
+#defines open chrome function
+def open_chrome():
+    os.system("start chrome")
+    print("\nJadGPT: Opening Chrome for you!")
+
+
+#The rules is the chat bots knowledge base, it uses the keywords to find a response to the user input
       
 rules = [ 
     #Greeting
@@ -53,7 +80,7 @@ rules = [
       "Try to take it easy, what's going on?"]),
 
     #Bored
-    (["bored","nothing to do","im bored","so bored"],
+    (["bored","nothing to do"],
      ["Same sometimes, wanna find something to do?",
       "You could try a game or watch something.",
       "Yeah boredom hits hard sometimes.",
@@ -148,14 +175,6 @@ rules = [
       "Anytime.",
       "Glad I could help.",
       "No worries."]),
-
-    #Bye
-    (["bye","goodbye","see you","later"],
-     ["See you later.",
-      "Goodbye.",
-      "Catch you later.",
-      "Take care.",
-      "Bye."]),
 
     #About JadGPT
     (["who are you","what is jadgpt","what can you do"],
@@ -256,12 +275,42 @@ rules = [
     #Answers for "yes"
     (["yes","yeah","yep","definitely"],
      ["Great! What do you want to talk about?"]),
+
+    #Answers for "Okay"
+    (["okay","ok","alright","sure","fine","alrighty","alr"],
+     ["Okay, what do you want to talk about?"]),
+
     
     #ACTION: Time
-    (["what time is it","time","current time"],
-     get_datetime),
-        
+    (["what time is it","current time"],
+     get_time),
+
+    #ACTION: Date
+    (["what is the date", "current date", "what date is it"],
+     get_date),
+    #ACTION: Time and Date
+    (["time and date", "date and time", "both time and date"],
+     get_time_and_date),
+
+    #ACTION: Open Spotify
+    (["open spotify", "play spotify", "start spotify", "play music","spotify"],
+     open_spotify),
+
+    #ACTION: Day
+    (["what day is it", "which day", "what day"],
+     get_day),
+
+    #ACTION: Open Opera
+    (["open opera", "start opera","opera"],
+     open_opera),
+
+    #ACTION: Open Chrome
+    (["open chrome", "start chrome","chrome"],
+     open_chrome),
+    
 ]
+
+#fall back responses are used when the chatbot doesn't understand the user input, it picks a random response from the list to keep the conversation going
 fallback_responses = [
     "Can you motivate",
     "I don't understand",
@@ -270,24 +319,40 @@ fallback_responses = [
     "I don't get it",
 ]
 
-def find_response(user_input):
-    user=user_input.lower()
-    for keywords, responses in rules:
-        if any(keyword in user_input for keyword in keywords):
-            return random.choice(responses)
+#find response function takes the user input and checks it against the rules, if it finds a match it returns a random response from the list of responses for that rule, if it doesn't find a match it returns a random response from the fallback responses
+def find_response(message):
+    message = message.lower()
+    for keywords, response in rules:  # Unpack tuple: keywords list and responses
+        for keyword in keywords:  # Iterate through each keyword in the list
+            if keyword in message:
+                if callable(response):
+                    response()
+                    return None
+                return random.choice(response)
     return random.choice(fallback_responses)
 
+#run_jadgpt function is the main function that runs the chatbot, it welcomes the user and then enters a loop where it takes user input and finds a response until the user says a farewell word, at which point it says goodbye and exits the loop
 def run_Jadgpt():
     print("=" * 50)
     print("Welcome to JadGPT! Type 'exit' to quit.")
     print("=" * 50)
 
+    farewell_words = ["exit", "quit", "goodbye", "bye", "see you later", "farewell","later", "cya", "see ya", "peace out", "take care"]
+
     while True:
         user_input = input("\nYou: ").strip()
-        if user_input.lower() == "exit":
-            print("Goodbye!")
-            break
+        
+        if not user_input:
+            continue
+
         response = find_response(user_input)
-        print("JadGPT: " + response)
+
+        if response is not None:
+            print(f"\nJadGPT: {response}")
+
+        if any(word in user_input.lower() for word in farewell_words):
+            print("\nJadGPT: Goodbye! Have a great day!")
+            break
 if __name__ == "__main__":
-  run_Jadgpt()
+    #start the chatbot
+    run_Jadgpt()
