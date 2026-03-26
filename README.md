@@ -36,6 +36,15 @@ Finns det fortfarande problem?
 
 Ja, det finns fortfarande vissa problem kvar. Chatboten är fortfarande regelbaserad och har ingen riktig förståelse för kontext eller meningar, vilket gör att den ibland kan misstolka vad användaren menar
 
+1. Vilka actions fungerar?
+Alla mina actions fungerade bra, det vara bara datum ock tid actionen som var krånlig. Däremot så var det mycket problem med actionsen innan eftersom jag hade lite fel på koden. Så som samma variablar som skapade "collision" men jag löste det genom att fråga både Robert och AI.
+3. Vilken action fungerade bäst?
+Just nu fungerar alla bra, inga problem där.
+5. Vilken action fungerade sämst?
+Just nu ingen för alla funkar men innan så funkade inte "date and time" action eftersom att nyckelorden krångla till det lite. Boten tog fram bara tiden istället för både tid och datum. Jag löste det genom att ta bort ordet "time" från time action.
+7. Vad behövde ni förbättra i datan?
+Jag har redan förklarat de på fråga 1, 2 och 3 så tänker att jag inte behöver svara på denna direkt.
+
 
 
 
