@@ -73,7 +73,7 @@ rules = [
       "School can be hard, but learning new things is fun."]),
 
     #Angry
-    (["angry","mad","pissed","annoyed","frustrated"],
+    (["angry","pissed","annoyed","frustrated"],
      ["That sounds really frustrating.",
       "Want to vent about it?",
       "What happened?",
