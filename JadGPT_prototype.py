@@ -66,7 +66,7 @@ rules = [
       "I'm here to listen."]),
 
     #School
-    (["school","homework","exam","test","studying","class"],
+    (["school","homework","exam","test","studying","class","bullied","bully"],
      ["How is school going for you?",
       "Do you like the subject you're studying?",
       "Good luck if you have a test coming up.",
